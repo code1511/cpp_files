@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define f for(int i=0;i<n;i++)
+#define c cin>>
+#define o cout<<
+#define l long long
+int main(){
+  l t;c t;
+  while(t--){
+    l n;c n;
+    vector<l>v;
+    f{
+      l val;c val;
+      v.push_back(val);
+    }
+    l s,m=0;
+    f{
+      while(v[i]>0){
+        s+=v[i]%10;
+        v[i]/=10;
+      }
+      if(s<m){
+        m=s;
+      }
+    }
+    cout<<m<<"\n";
+  }
+return 0;
+}
