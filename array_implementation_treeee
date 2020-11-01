@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+int tree[100];
+void root(int val){
+    if(tree[0]!='\0'){
+        cout<<"root is not free \n alreday having value \n";
+    }
+    else{
+        tree[0]=val;
+    }
+}
+void left_child(int v,int parent){
+    if(tree[parent]=='\0'){
+        cout<<"don't have valid parent \n";
+    }
+    else{
+        tree[(parent*2)+1]=v;
+    }
+}
+void right_child(int v,int parent){
+    if(tree[parent]=='\0'){
+        cout<<"dont have a valid parent \n";
+    }
+    else{
+        tree[(parent*2)+2]=v;
+    }
+}
+void show(){
+    for(int i=0;i<10;i++){
+        if(tree[i]!='\0'){
+            cout<<tree[i]<<" ";
+        }
+        else{
+            cout<<"--";
+        }
+    }
+    cout<<"\n";
+}
+int main(){
+   root(6);
+   left_child(4,0);
+   right_child(8,0);
+   left_child(34,1);
+   right_child(39,1);
+   right_child(105,2);
+   show();
+    return 0;
+
+}
