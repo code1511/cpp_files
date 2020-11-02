@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+void fun(int a[],int n,int d){
+    int b[n];
+    for(int i=0;i<d;i++){
+        b[i]=a[i];
+    }
+    int i=0,j;
+    for(i=0,j=d;j<n,i<n;j++,i++){
+        a[i]=a[j];
+    }
+    for(i=n-d,j=0;j<d;i++,j++){
+        a[i]=b[j];
+    }
+}
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n;cin>>n;
+        int d;cin>>d;
+        int ar[n];
+        for(int i=0;i<n;i++){
+            cin>>ar[i];
+        }
+        fun(ar,n,d%n);
+       for(int i=0;i<n;i++){
+           cout<<ar[i]<<" ";
+       }
+       cout<<"\n";
+    }
+    return 0;
+}
