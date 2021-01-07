@@ -1,0 +1,89 @@
+//link to the question 
+//https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+   vector<int> ans;
+    
+// function for adding nodes at distance k, to the ans
+void addNodes(TreeNode *root, TreeNode *target, int k) {
+    if(!root) {
+        return;
+    }
+    if(k == 0) {
+        // found a node at distance k  
+        ans.push_back(root->val);
+        return;
+    }
+    // bfs
+    // go to child nodes with k-1, 1 unit distance less
+    addNodes(root->left, target, k-1);
+    addNodes(root->right, target, k-1);
+}
+
+// finding target, and backtracking to find nodes at distance k
+int findTarget(TreeNode *root, TreeNode *target, int k) {
+    if(!root) {
+        // couldn't find target here 
+        return -1;
+    }
+    if(root == target) {
+        // target found
+        // add children with 1 unit dis less, k-1
+        addNodes(root->left, target, k-1);
+        addNodes(root->right, target, k-1);
+        // for the parent, return k-1
+        return k-1;
+    }
+
+    // now target could be in either 
+    // left subtree or
+    // right subtree 
+
+    int l = findTarget(root->left, target, k);
+    if(l >= 0) {
+        // if target was found on left subtree 
+        if(l == 0) {
+            ans.push_back(root->val);
+            return -1;
+        }
+        // add nodes from right subtree, since left as target 
+        addNodes(root->right, target, l-1);
+        // to parent, 1 unit dis less 
+        return l-1;
+    }
+
+    int r = findTarget(root->right, target, k);
+    if(r >= 0) {
+        // if target is found int right subtree 
+        if(r == 0) {
+            ans.push_back(root->val);
+            return -1;
+        }
+        // add nodes from left subtree, since right as target 
+        addNodes(root->left, target, r-1);
+        // to parent, 1 unit dis less 
+        return r-1;
+    }
+    
+    return -1;
+}
+
+vector<int> distanceK(TreeNode* root, TreeNode* target, int K) {
+    if(K == 0) {
+        return {target->val};
+    }
+    ans.clear();
+    findTarget(root, target, K);
+    return ans;
+}
+};
